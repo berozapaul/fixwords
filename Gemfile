@@ -45,3 +45,9 @@ group :development do
   gem 'spring'
 end
 
+gem 'therubyracer'
+gem 'less-rails', '~> 2.7.0'
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+
+gem 'devise'
+gem 'activeadmin', github: 'activeadmin'

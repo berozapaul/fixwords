@@ -1,9 +1,19 @@
 Rails.application.routes.draw do
+  get 'word/index'
+  get 'word/firststage'
+  get 'word/secondstage'
+  get 'word/thirdstage'
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  devise_for :users
+  get 'welcome/index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
