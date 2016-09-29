@@ -17,23 +17,25 @@
 //= require_tree .
 
 $(document).ready(function() {
+    var answerStr, incompleteWord;
     var showQuizQuestion = function(quiz){
         if(!quiz.word) return false;
         var wordArr = quiz.word.split('');
         var levelValue = parseInt($('.game_level').val());
-        var randIndexArr = [], answerStr = '', questionHTML = '';
+        var randIndexArr = [], questionHTML = '';
 
         while(1){
             randIndexArr.push(Math.floor(Math.random()*wordArr.length));
             randIndexArr = randIndexArr.filter(function (value, index, self) {return self.indexOf(value) === index;});
+            randIndexArr.sort();
             if(randIndexArr.length >= levelValue) break;
         }
 
+        answerStr = '';
         for(i = 0 ; i < randIndexArr.length ; i++){
             answerStr += wordArr[randIndexArr[i]];
             wordArr[randIndexArr[i]] = '';
         }
-
 
         for(i in wordArr) {
             if(!wordArr[i]){
@@ -50,4 +52,40 @@ $(document).ready(function() {
     if(quizDataArr){
         showQuizQuestion(quizDataArr.shift());
     }
+
+    var showQuizResult = function(ansType){
+        var resultHTML = ansType ? '<div class="correct_answer answer_wrapper"><h2>Correct!</h2>' : '<div class="wrong_answer answer_wrapper"><h2>Wrong!</h2>';
+        resultHTML += '<a class="btn btn-default next_btn">OK. Next</a></div>';
+        $('.quiz_container').html(resultHTML);
+    };
+
+    $('.quiz_container').on('click', '.go_btn', function(event) {
+        var userAnswer = '', ansType, className;
+        incompleteWord = false;
+        $(this).parent().find('input').each(function(index, inputObj){
+            if(!$(inputObj).val()) incompleteWord = true;
+            userAnswer += $(inputObj).val();
+        });
+
+        if(userAnswer === answerStr){
+            ansType = true; className = 'correct_answer';
+        }else{
+            ansType = false; className = 'wrong_answer animated shake';
+        }
+
+        $(this).addClass(className);
+        setTimeout(function(){ showQuizResult(ansType)}, 1000);
+    });
+
+    $('.quiz_container').on('click', '.next_btn', function(event) {
+        if(quizDataArr.length > 0){
+            showQuizQuestion(quizDataArr.shift());
+        }
+        else{
+            var awardHTML = '';
+            awardHTML += '<div><button onclick="location.reload();"><span><i class="fa fa-chevron-left"></i> Reset </span></button></div>';
+            awardHTML += '<div><button class="go_back"><span>Back <i class="fa fa-chevron-right"></i></span></button></div>';
+            $('.quiz_container').html(awardHTML);
+        }
+    });
 }); // End of document.ready

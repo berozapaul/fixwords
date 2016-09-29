@@ -6,7 +6,7 @@
   position: absolute;
   top:0; right: 0; bottom: 0; left: 0;
   margin: auto;
-  height: 1px;
+  height: 100px;
   text-align: center;
 
   .each_option{
@@ -43,3 +43,15 @@
     font-size: 25px;
   }
 }
+
+.answer_wrapper {
+  border-radius: 8px;
+  min-width: 500px;
+  padding: 20px 25px 60px;
+  box-sizing: border-box;
+  text-align: left;
+  position: relative;
+  display: inline-block;
+}
+.correct_answer{background-color:#69c462 !important; color:#fff !important;}
+.wrong_answer{background-color:#dc181a !important; color:#fff !important;}
