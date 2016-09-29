@@ -7,6 +7,7 @@ class WordController < ApplicationController
   end
 
   def secondstage
+    @words = Word.where( :level => 2);
   end
 
   def thirdstage

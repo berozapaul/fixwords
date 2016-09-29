@@ -74,7 +74,7 @@ $(document).ready(function() {
         }
 
         $(this).addClass(className);
-        setTimeout(function(){ showQuizResult(ansType)}, 1000);
+        setTimeout(function(){ showQuizResult(ansType)}, 100);
     });
 
     $('.quiz_container').on('click', '.next_btn', function(event) {
@@ -82,9 +82,9 @@ $(document).ready(function() {
             showQuizQuestion(quizDataArr.shift());
         }
         else{
-            var awardHTML = '';
-            awardHTML += '<div><button onclick="location.reload();"><span><i class="fa fa-chevron-left"></i> Reset </span></button></div>';
-            awardHTML += '<div><button class="go_back"><span>Back <i class="fa fa-chevron-right"></i></span></button></div>';
+            var nextStageUrl = $('.next-url').val();
+            var awardHTML = '<div class="confirm-msg answer_wrapper"><span>Congratulations! you have completed this stage. <br>Please click on continue to go next stage.</span>';
+            awardHTML += '<p><a data-method="get" href="'+nextStageUrl+'" class="btn btn-default">Continue</a></p></div>';
             $('.quiz_container').html(awardHTML);
         }
     });
